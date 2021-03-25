@@ -13,14 +13,19 @@
  
 </head>
 <body>
+
 <div class="shadow">
   <nav id="nav">
     <a href="/"><img src="https://res.cloudinary.com/ambdev/image/upload/v1559241273/heroheart/icon_nfbwoh.png" ></a>
-    <a href="/auth/login">Login / Signup</a>
+    {{#unless user}}
+      <a href="/auth/login">Login / Signup</a>
+    {{/unless}}
     <a href="/symptoms">Diagnostic</a>
     <a href="/profile">Profile</a>
     <a href="/basicmap">Hospitals</a>
-    <a href="/auth/logout">Logout</a>
+    {{#if user}}
+      <a href="/auth/logout">Logout</a>
+    {{/if}}
   </nav>
 </div>
 <div id="top-arrow"><img src="https://res.cloudinary.com/ambdev/image/upload/v1559240621/heroheart/up-arrow_bfxzxk.png" alt=""></div>
