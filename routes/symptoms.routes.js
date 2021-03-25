@@ -1,32 +1,29 @@
-const express = require('express');
-const router = express.Router();
-const axios = require("axios")
-const Symptoms = require("../models/Symptoms.models")
-const ensureLoggedIn = require("connect-ensure-login").ensureLoggedIn
-require("dotenv").config()
+const express = require('express')
+const router = express.Router()
+const axios = require('axios')
+const Symptoms = require('../models/Symptoms.models')
+const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn
+require('dotenv').config()
 
 //CONFIGURACION DE LA API
 const token = process.env.TOKEN
 // Petición GET de los SYMPTOM
-router.get('/', ensureLoggedIn("/auth/login"),(req, res, next)=> {
-  Symptoms.find()
-  .then(allSymptoms => res.render('symptoms', { symptoms: allSymptoms.map(element => element.Name)}) )
-  .catch(error => console.log(error))
+router.get('/', ensureLoggedIn('/auth/login'), (req, res, next) => {
+	Symptoms.find()
+		.then(allSymptoms => res.render('symptoms', { symptoms: allSymptoms.map(element => element.Name), user: req.user }))
+		.catch(error => console.log(error))
 })
 
-
-
-router.post("/", (req, res, next) => {
-  
-  const URI = `https://sandbox-healthservice.priaid.ch/diagnosis?symptoms=[${Object.values(req.body)}]&gender=${req.user.gender}&year_of_birth=${req.user.year_of_birth}&token=${token}&format=json&language=en-gb`
-        console.log(URI)
-          axios.get(URI)
-            .then(response => res.render('diagnostic', {data: response.data}))
-            .catch(err => console.log(err))
-        } )
-
-
-
+router.post('/', (req, res, next) => {
+	const URI = `https://sandbox-healthservice.priaid.ch/diagnosis?symptoms=[${Object.values(req.body)}]&gender=${
+		req.user.gender
+	}&year_of_birth=${req.user.year_of_birth}&token=${token}&format=json&language=en-gb`
+	console.log(URI)
+	axios
+		.get(URI)
+		.then(response => res.render('diagnostic', { data: response.data }))
+		.catch(err => console.log(err))
+})
 
 //   if(typeof req.body.symptoms != "string"){
 //     const symptoms = [...req.body.symptoms]
@@ -57,17 +54,15 @@ router.post("/", (req, res, next) => {
 //       .catch(err => console.log(err))
 //   }
 // })
-  // Symptoms.find()
-  //   .then(allSymptoms =>{
-  //     allSymptoms = allSymptoms.map(element => element.Name)
-  //     res.render('symptoms', { allSymptoms});
-  //   })
-  //   .catch(error => console.log(error))
+// Symptoms.find()
+//   .then(allSymptoms =>{
+//     allSymptoms = allSymptoms.map(element => element.Name)
+//     res.render('symptoms', { allSymptoms});
+//   })
+//   .catch(error => console.log(error))
 
-  // axios.get(URI)
-  // .then(response => console.log(response.data))
-  // .catch(error => console.log(error))
+// axios.get(URI)
+// .then(response => console.log(response.data))
+// .catch(error => console.log(error))
 
-
-
-module.exports = router;
+module.exports = router
