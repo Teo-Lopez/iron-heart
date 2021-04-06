@@ -5,6 +5,7 @@ const app = express()
 
 require('./configs/locals.config')
 require('./configs/db.config')
+require('./configs/cors.config')(app)
 require('./configs/preprocessor.config')(app)
 require('./configs/engine.config')(app)
 require('./configs/session.config')(app)
