@@ -1,9 +1,8 @@
-{{!-- <div class="symptoms-container">
+<div class="symptoms-container">
   <div class="symptoms-col">
-   --}}
-{{!--   
+ 
    <div class="symptoms-row">
-      <form action="/symptoms" method="POST">
+      {{!-- <form action="/symptoms" method="POST">
       <label for="symptoms">Choose a symptom:</label>
       <select name="symptoms" id="symptoms" multiple size="5">
         {{#each symptoms}}
@@ -14,16 +13,11 @@
   
       </form> --}}
 
-
     <section class="bodySection">
       <div id="instructions"><p>Click any part of the body to indicate what are your symptoms.</p>
        <div id="symptomsList">
          <form action="/symptoms" method="POST" id="symptomsForm" class="container">
           <ul id="ulSymptoms" class="row">
-
-
-
-            
           </ul>
             <button>Get your Diagnostic</button>
           </form> 
@@ -41,10 +35,6 @@
         <div id="legsdiv" class="hidden legs"> Hello</div>
         <div id="skindiv" class="hidden skin"> Hello</div>
 
-
-
-
-
         <img src="/images/bodyimg.png" usemap="#image-map">      
         <map name="image-map">
             <area target="" alt="arms" title="Arms" id="arms" coords="208,195,13" shape="circle">
@@ -57,9 +47,5 @@
       </div>
     </section>
     
-    <section >
-     
 
-    </section>
-  {{!-- </div>
-</div> --}}
+  
