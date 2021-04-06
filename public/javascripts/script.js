@@ -1,248 +1,213 @@
+const apiService = new BodypartsService()
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener(
+	'DOMContentLoaded',
+	() => {
 
+		const getSymptomsList = id => {
+			apiService
+				.getDiagnosis(id)
+				.then(list => {
+					console.log(list)
+					list.forEach(data => {
+						const option = document.createElement('input')
+						option.setAttribute('type', 'checkbox')
+						option.setAttribute('value', `${data.ID}`)
+						option.setAttribute('name', `${data.Name}`)
+						option.setAttribute('class', 'col-md-6')
 
-document.body.onmousemove = (e) => {
-  console.log(e.pageY)
-  if(e.pageY <= 80) document.getElementById("nav").style.opacity = 1
-  if(e.pageY > 80) document.getElementById("nav").style.opacity = 0
-}
-  
-const getSymptomsList = (id) => {
+						const label = document.createElement('label')
+						label.setAttribute('for', `${data.Name}`)
+						label.setAttribute('class', 'col-md-6')
+						label.innerHTML = data.Name
+						const li = document.createElement('li')
+						li.setAttribute('class', 'col-md-6')
+						li.append(label)
+						li.append(option)
+						document.getElementById('ulSymptoms').append(li)
+					})
+				})
+				.catch(err => console.log(err))
+		}
 
-  // axios.get(`http://localhost:3000/api/getDiagnosis/${id}`)  
-  axios.get(`https://heroheart.herokuapp.com/api/getDiagnosis/${id}`)
-  .then( list => {
+		//ARMS
+		document.getElementById('arms').onclick = e => {
+			apiService
+				.getArmsLocations()
+				.then(fullList => {
+					document.getElementById('armsdiv').innerHTML = ''
 
-    list.data.forEach( data => {
+					fullList[0].expanded.forEach(element => {
+						let parag = document.createElement('p')
 
-      const option = document.createElement("input")
-      option.setAttribute("type", "checkbox")
-      option.setAttribute("value", `${data.ID}`)
-      option.setAttribute("name", `${data.Name}`)
-      option.setAttribute('class', 'col-md-6')
+						parag.innerHTML = element.Name + `<img src="/images/link.png" alt="">`
+						parag.setAttribute('id', `${element.ID}`)
 
-      const label = document.createElement("label")
-      label.setAttribute("for", `${data.Name}`)
-      label.setAttribute('class', 'col-md-6')
-      label.innerHTML = data.Name
-      const li = document.createElement("li")
-      li.setAttribute('class', 'col-md-6')
-      li.append(label)
-      li.append(option)
-      document.getElementById("ulSymptoms").append(li)
+						//LLAMADA A NUESTRA API BACK
+						parag.onclick = () => {
+							getSymptomsList(element.ID)
+						}
 
-    })
-  })
-  .catch()
-}
-  
-  //ARMS
-  document.getElementById("arms").onclick = (e) => {
-    
-    // axios.get(`http://localhost:3000/api/7`)  
-    axios.get(`https://heroheart.herokuapp.com/api/7`)
-    .then( fullList => {
-      
-      document.getElementById("armsdiv").innerHTML = ""
+						document.getElementById('armsdiv').appendChild(parag)
+					})
+					document.getElementById('armsdiv').classList.remove('hidden')
+					document.getElementById('armsdiv').classList.add('menu')
 
-      
-      fullList.data[0].expanded.forEach(element =>  {
-        let parag = document.createElement("p")
+					// document.querySelectorAll("sintoma").forEach(item => item.onclick = () => alert("HELLO"))
+				})
+				.catch(err => console.log(err))
+		}
 
-        parag.innerHTML = element.Name+`<img src="/images/link.png" alt="">`
-        parag.setAttribute("id",`${element.ID}`)
+		document.getElementById('armsdiv').onclick = e => {
+			document.getElementById('armsdiv').classList.add('hidden')
+			document.getElementById('armsdiv').classList.remove('menu')
+		}
 
-        //LLAMADA A NUESTRA API BACK
-        parag.onclick = () => {
-          getSymptomsList(element.ID)
-           
-        }
+		//ABDOMEN
+		document.getElementById('abdomen').onclick = e => {
+			apiService
+				.getAbdomenLocations()
+				.then(fullList => {
+					document.getElementById('abdomendiv').innerHTML = ''
 
-        
-        document.getElementById("armsdiv").appendChild(parag) 
-      })
-      document.getElementById("armsdiv").classList.remove("hidden")        
-      document.getElementById("armsdiv").classList.add("menu")
+					fullList[0].expanded.forEach(element => {
+						let parag = document.createElement('p')
+						parag.innerHTML = element.Name + `<img src="/images/link.png" alt="">`
+						parag.setAttribute('id', `${element.ID}`)
+						parag.onclick = () => {
+							getSymptomsList(element.ID)
+						}
 
-      // document.querySelectorAll("sintoma").forEach(item => item.onclick = () => alert("HELLO"))
-        
+						document.getElementById('abdomendiv').appendChild(parag)
+					})
+					document.getElementById('abdomendiv').classList.remove('hidden')
+					document.getElementById('abdomendiv').classList.add('menu')
+				})
+				.catch(err => console.log(err))
+		}
 
-      })
-      .catch(err => console.log(err))
-  }
+		document.getElementById('abdomendiv').onclick = e => {
+			document.getElementById('abdomendiv').classList.add('hidden')
+			document.getElementById('abdomendiv').classList.remove('menu')
+		}
 
-  document.getElementById("armsdiv").onclick = (e) => {
-      document.getElementById("armsdiv").classList.add("hidden")
-      document.getElementById("armsdiv").classList.remove("menu")
-  }
-  
+		//CHEST
 
-  //ABDOMEN
-  document.getElementById("abdomen").onclick = (e) => {
-    
-    // axios.get(`http://localhost:3000/api/16`)  
-    axios.get(`https://heroheart.herokuapp.com/api/16`)
-      .then( fullList => {
-        document.getElementById("abdomendiv").innerHTML = ""
+		document.getElementById('chest').onclick = e => {
+			apiService
+				.getChestLocations()
+				.then(fullList => {
+					document.getElementById('chestdiv').innerHTML = ''
 
-        fullList.data[0].expanded.forEach(element =>  {
-          
-        let parag = document.createElement("p")
-        parag.innerHTML = element.Name+`<img src="/images/link.png" alt="">`
-        parag.setAttribute("id",`${element.ID}`)
-        parag.onclick = () => {
-          getSymptomsList(element.ID)
-        }
-        
-        document.getElementById("abdomendiv").appendChild(parag) 
-        })
-        document.getElementById("abdomendiv").classList.remove("hidden")        
-        document.getElementById("abdomendiv").classList.add("menu")
+					fullList[0].expanded.forEach(element => {
+						let parag = document.createElement('p')
+						parag.innerHTML = element.Name + `<img src="/images/link.png" alt="">`
+						parag.setAttribute('id', `${element.ID}`)
+						parag.onclick = () => {
+							getSymptomsList(element.ID)
+						}
 
-      })
-      .catch(err => console.log(err))
-  }
+						document.getElementById('chestdiv').appendChild(parag)
+					})
 
-  document.getElementById("abdomendiv").onclick = (e) => {
-    document.getElementById("abdomendiv").classList.add("hidden")
-    document.getElementById("abdomendiv").classList.remove("menu")
+					document.getElementById('chestdiv').classList.remove('hidden')
+					document.getElementById('chestdiv').classList.add('menu')
+				})
+				.catch(err => console.log(err))
+		}
+		document.getElementById('chestdiv').onclick = e => {
+			document.getElementById('chestdiv').classList.add('hidden')
+			document.getElementById('chestdiv').classList.remove('menu')
+		}
 
-  }
-  
-//CHEST
+		//HEAD
 
+		document.getElementById('head').onclick = e => {
+			apiService
+				.getHeadLocations()
+				.then(fullList => {
+					document.getElementById('headdiv').innerHTML = ''
 
-  document.getElementById("chest").onclick = (e) => {
-    
-    // axios.get(`http://localhost:3000/api/15`)  
-    axios.get(`https://heroheart.herokuapp.com/api/15`)
-      .then( fullList => {
-        document.getElementById("chestdiv").innerHTML = ""
-          
-        fullList.data[0].expanded.forEach(element =>  {
-          
-        let parag = document.createElement("p")
-        parag.innerHTML = element.Name+`<img src="/images/link.png" alt="">`
-        parag.setAttribute("id",`${element.ID}`)
-        parag.onclick = () => {
-          getSymptomsList(element.ID)          
-        }
-        
-        document.getElementById("chestdiv").appendChild(parag) 
-        
-        })
+					fullList.data[0].expanded.forEach(element => {
+						let parag = document.createElement('p')
+						parag.innerHTML = element.Name + `<img src="/images/link.png" alt="">`
+						parag.setAttribute('id', `${element.ID}`)
+						parag.onclick = () => {
+							getSymptomsList(element.ID)
+						}
 
-        document.getElementById("chestdiv").classList.remove("hidden")        
-        document.getElementById("chestdiv").classList.add("menu")
+						document.getElementById('headdiv').appendChild(parag)
+					})
+					document.getElementById('headdiv').classList.remove('hidden')
+					document.getElementById('headdiv').classList.add('menu')
+				})
+				.catch(err => console.log(err))
+		}
 
-      })
-      .catch(err => console.log(err))
-  }
-  document.getElementById("chestdiv").onclick = (e) => {
-    document.getElementById("chestdiv").classList.add("hidden")
-    document.getElementById("chestdiv").classList.remove("menu")
-  }
-  
+		document.getElementById('headdiv').onclick = e => {
+			document.getElementById('headdiv').classList.add('hidden')
+			document.getElementById('headdiv').classList.remove('menu')
+		}
 
-//HEAD
+		//LEGS
 
-  document.getElementById("head").onclick = (e) => {
-    
-    // axios.get(`http://localhost:3000/api/6`)      
-    axios.get(`https://heroheart.herokuapp.com/api/6`)
-      .then( fullList => {
-        document.getElementById("headdiv").innerHTML = ""
-          
-        fullList.data[0].expanded.forEach(element =>  {
-        
-          let parag = document.createElement("p")
-          parag.innerHTML = element.Name+`<img src="/images/link.png" alt="">`
-          parag.setAttribute("id",`${element.ID}`)
-          parag.onclick = () => {
-            getSymptomsList(element.ID)          
-          }
-          
-          document.getElementById("headdiv").appendChild(parag) 
-        })
-        document.getElementById("headdiv").classList.remove("hidden")        
-        document.getElementById("headdiv").classList.add("menu")
-      })
-      .catch(err => console.log(err))
-  }
+		document.getElementById('legs').onclick = e => {
+			apiService
+				.getLegLocations()
+				.then(fullList => {
+					document.getElementById('legsdiv').innerHTML = ''
 
-  document.getElementById("headdiv").onclick = (e) => {
-    document.getElementById("headdiv").classList.add("hidden")
-    document.getElementById("headdiv").classList.remove("menu")
+					fullList[0].expanded.forEach(element => {
+						let parag = document.createElement('p')
+						parag.innerHTML = element.Name + `<img src="/images/link.png" alt="">`
+						parag.setAttribute('id', `${element.ID}`)
+						parag.onclick = () => {
+							getSymptomsList(element.ID)
+						}
 
-  }
-  
-//LEGS
+						document.getElementById('legsdiv').appendChild(parag)
+					})
+					document.getElementById('legsdiv').classList.remove('hidden')
+					document.getElementById('legsdiv').classList.add('menu')
+				})
+				.catch(err => console.log(err))
+		}
 
-  document.getElementById("legs").onclick = (e) => {
+		document.getElementById('legsdiv').onclick = e => {
+			document.getElementById('legsdiv').classList.add('hidden')
+			document.getElementById('legsdiv').classList.remove('menu')
+		}
 
-    // axios.get(`http://localhost:3000/api/10`)  
-    axios.get(`https://heroheart.herokuapp.com/api/10`)
-      .then( fullList => {
-        document.getElementById("legsdiv").innerHTML = ""
-          
-        fullList.data[0].expanded.forEach(element =>  {
-          
-        let parag = document.createElement("p")
-        parag.innerHTML = element.Name+`<img src="/images/link.png" alt="">`
-        parag.setAttribute("id",`${element.ID}`)
-        parag.onclick = () => {
-          getSymptomsList(element.ID)          
-        }
-        
-        document.getElementById("legsdiv").appendChild(parag) 
-        })
-        document.getElementById("legsdiv").classList.remove("hidden")        
-        document.getElementById("legsdiv").classList.add("menu")
-      })
-      .catch(err => console.log(err))
-  }
+		// SKIN
 
-  document.getElementById("legsdiv").onclick = (e) => {
-    document.getElementById("legsdiv").classList.add("hidden")
-    document.getElementById("legsdiv").classList.remove("menu")
+		document.getElementById('skin').onclick = e => {
+			apiService
+				.getSkinLocations()
+				.then(fullList => {
+					document.getElementById('skindiv').innerHTML = ''
 
-  }
+					fullList[0].expanded.forEach(element => {
+						let parag = document.createElement('p')
+						parag.innerHTML = element.Name + `<img src="/images/link.png" alt="">`
+						parag.setAttribute('id', `${element.ID}`)
+						parag.onclick = () => {
+							getSymptomsList(element.ID)
+						}
 
-// SKIN
+						document.getElementById('skindiv').appendChild(parag)
+					})
+					document.getElementById('skindiv').classList.remove('hidden')
+					document.getElementById('skindiv').classList.add('menu')
+				})
+				.catch(err => console.log(err))
+		}
 
-
-document.getElementById("skin").onclick = (e) => {
-
-  // axios.get(`http://localhost:3000/api/17`)
-  axios.get(`https://heroheart.herokuapp.com/api/17`)
-    .then( fullList => {
-      document.getElementById("skindiv").innerHTML = ""
-          
-        fullList.data[0].expanded.forEach(element =>  {
-          
-        let parag = document.createElement("p")
-        parag.innerHTML = element.Name+`<img src="/images/link.png" alt="">`
-        parag.setAttribute("id",`${element.ID}`)
-        parag.onclick = () => {
-          getSymptomsList(element.ID)
-          
-        }
-        
-        document.getElementById("skindiv").appendChild(parag) 
-        })
-      document.getElementById("skindiv").classList.remove("hidden")        
-      document.getElementById("skindiv").classList.add("menu")
-    })
-    .catch(err => console.log(err))
-}
-
-document.getElementById("skindiv").onclick = (e) => {
-  document.getElementById("skindiv").classList.add("hidden")
-  document.getElementById("skindiv").classList.remove("menu")
-
-}
-
-}, false);
+		document.getElementById('skindiv').onclick = e => {
+			document.getElementById('skindiv').classList.add('hidden')
+			document.getElementById('skindiv').classList.remove('menu')
+		}
+	},
+	false
+)
 
 // PETITION FROM CLIENT SIDE
