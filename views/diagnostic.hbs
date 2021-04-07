@@ -1,11 +1,11 @@
 <section class="body">
 
-  <div class="row">
+<div class="row">
 {{#if data}}
 {{#each data}}
 
-<div class="col-md-6">
-  <h3>Diagnostic: <a href="/diagnostic/{{Issue.ID}}">{{Issue.Name}}</a></h3>
+<div class="col-12 justify-content-around">
+  <h3>Diagnostic: <a class="diagnostic" href="/diagnostic/{{Issue.ID}}">{{Issue.Name}}</a></h3>
   <p>Likelihood of an accurate diagnosis: {{Issue.Accuracy}}%</p>
 </div>
 {{/each}}

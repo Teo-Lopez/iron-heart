@@ -10,11 +10,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap-reboot.min.css">
   <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap-grid.min.css">
   <link rel="stylesheet" href="/stylesheets/style.css" />
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
  
 </head>
 <body>
 
-<div class="shadow">
   <nav id="nav">
     <a href="/"><img src="https://res.cloudinary.com/ambdev/image/upload/v1559241273/heroheart/icon_nfbwoh.png" ></a>
     {{#unless user}}
@@ -22,18 +22,15 @@
     {{/unless}}
     <a href="/symptoms">Diagnostic</a>
     <a href="/profile">Profile</a>
-    <a href="/basicmap">Hospitals</a>
+    <a href="/hospitals">Hospitals</a>
     {{#if user}}
       <a href="/auth/logout">Logout</a>
     {{/if}}
   </nav>
-</div>
-<div id="top-arrow"><img src="https://res.cloudinary.com/ambdev/image/upload/v1559240621/heroheart/up-arrow_bfxzxk.png" alt=""></div>
-
+<main>
   {{{body}}}
+</main>
 
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="/javascripts/services/symptoms.service.js"></script>
-  <script src="/javascripts/script.js"></script>
+  
 </body>
 </html>
