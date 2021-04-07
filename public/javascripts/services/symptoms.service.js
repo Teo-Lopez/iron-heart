@@ -1,7 +1,7 @@
 class BodypartsService {
 	constructor() {
-		this.baseURL = `https://heroheart.herokuapp.com/api`
-		//this.baseURL = `http://localhost:3000/api`
+		//this.baseURL = `https://heroheart.herokuapp.com/api`
+		this.baseURL = `http://localhost:3000/api`
 		this.service = axios.create({ baseURL: this.baseURL, withCredentials: true })
 	}
 

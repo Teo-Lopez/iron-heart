@@ -4,18 +4,20 @@ const axios = require('axios')
 const User = require('../models/User.models')
 require('dotenv').config()
 
-const token = process.env.TOKEN
+const getToken = require('../utils/tokenRequest.js')
 
 router.get('/:id', (req, res) => {
-	const URI = `https://sandbox-healthservice.priaid.ch/issues/${req.params.id}/info?token=${token}&format=json&language=en-gb`
+	getToken().then(_ => {
+		const URI = `https://sandbox-healthservice.priaid.ch/issues/${req.params.id}/info?token=${process.env.API_TOKEN}&format=json&language=es-es`
 
-	axios
-		.get(URI)
-		.then(response => {
-			console.log(response)
-			res.render('diagnostic-details', { data: response.data, user: req.user })
-		})
-		.catch()
+		axios
+			.get(URI)
+			.then(response => {
+				console.log(response)
+				res.render('diagnostic-details', { data: response.data, user: req.user })
+			})
+			.catch()
+	})
 })
 
 router.post('/details', (req, res) => {
