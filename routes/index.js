@@ -6,5 +6,5 @@ module.exports = app => {
 	app.use('/profile', require('./profile.routes'))
 	app.use('/api', require('./api/locations.routes'))
 	app.use('/api', require('./api/expanded-symptoms.routes'))
-	app.use('/basicmap', require('./basic-map.routes'))
+	app.use('/hospitals', require('./hospitals-maps.routes'))
 }
