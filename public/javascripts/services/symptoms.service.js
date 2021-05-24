@@ -3,6 +3,14 @@ class BodypartsService {
 		//this.baseURL = `https://heroheart.herokuapp.com/api`
 		this.baseURL = `http://localhost:3000/api`
 		this.service = axios.create({ baseURL: this.baseURL, withCredentials: true })
+		this.map = {
+			arms: '7',
+			abdomen: '16',
+			chest: '15',
+			head: '6',
+			leg: '10',
+			skin: '17'
+		}
 	}
 
 	getDiagnosis(id) {
@@ -12,27 +20,7 @@ class BodypartsService {
 			.catch(err => console.log(err))
 	}
 
-	getArmsLocations() {
-		return this.service.get(`/7`).then(res => res.data)
-	}
-
-	getAbdomenLocations() {
-		return this.service.get(`/16`).then(res => res.data)
-	}
-
-	getChestLocations() {
-		return this.service.get(`/15`).then(res => res.data)
-	}
-
-	getHeadLocations() {
-		return this.service.get(`/6`).then(res => res.data)
-	}
-
-	getLegLocations() {
-		return this.service.get(`/10`).then(res => res.data)
-	}
-
-	getSkinLocations() {
-		return this.service.get(`/17`).then(res => res.data)
+	getLocation(loc) {
+		return this.service.get(`/${this.map[loc]}`).then(res => res.data)
 	}
 }

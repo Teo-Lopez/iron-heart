@@ -9,7 +9,7 @@ const getToken = require('../../utils/tokenRequest.js')
 router.get('/getDiagnosis/:id', (req, res) => {
 	getToken().then(_ => {
 		let gender = req.user == 'male' ? 0 : 1
-		let URILIST = `https://sandbox-healthservice.priaid.ch/symptoms/${req.params.id}/${gender}?token=${process.env.API_TOKEN}&format=json&language=es-es`
+		let URILIST = `https://sandbox-healthservice.priaid.ch/symptoms/${req.params.id}/${gender}?token=${process.env.API_TOKEN}&format=json&language=en-gb`
 		axios
 			.get(URILIST)
 			.then(response => res.json(response.data))

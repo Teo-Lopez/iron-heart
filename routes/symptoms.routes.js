@@ -11,7 +11,9 @@ const getToken = require('../utils/tokenRequest.js')
 // Petición GET de los SYMPTOM
 router.get('/', ensureLoggedIn('/auth/login'), (req, res, next) => {
 	Symptoms.find()
-		.then(allSymptoms => res.render('symptoms', { symptoms: allSymptoms.map(element => element.Name), user: req.user }))
+		.then(allSymptoms =>
+			res.render('symptoms', { symptoms: allSymptoms.map(element => element.Name), user: req.user })
+		)
 		.catch(error => console.log(error))
 })
 
@@ -21,9 +23,11 @@ router.post('/', (req, res, next) => {
 
 		console.log(process.env)
 		console.log('-----------------------------------------------')
-		const URI = `https://sandbox-healthservice.priaid.ch/diagnosis?symptoms=[${Object.values(req.body)}]&gender=${
-			req.user.gender
-		}&year_of_birth=${req.user.year_of_birth}&token=${process.env.API_TOKEN}&format=json&language=es-es`
+		const URI = `https://sandbox-healthservice.priaid.ch/diagnosis?symptoms=[${Object.values(
+			req.body
+		)}]&gender=${req.user.gender}&year_of_birth=${req.user.year_of_birth}&token=${
+			process.env.API_TOKEN
+		}&format=json&language=en-gb`
 		console.log(URI)
 		axios
 			.get(URI)
@@ -38,7 +42,7 @@ router.post('/', (req, res, next) => {
 //       .then( symptomsFound => {
 
 //         const ids = symptomsFound.map( eachsymptoms=> eachsymptoms.ID)
-//         const URI = `https://sandbox-healthservice.priaid.ch/diagnosis?symptoms=[${ids}]&gender=${req.user.gender}&year_of_birth=${req.user.year_of_birth}&token=${process.env.API_TOKEN}&format=json&language=es-es`
+//         const URI = `https://sandbox-healthservice.priaid.ch/diagnosis?symptoms=[${ids}]&gender=${req.user.gender}&year_of_birth=${req.user.year_of_birth}&token=${process.env.API_TOKEN}&format=json&language=en-gb`
 //         console.log(URI)
 //           axios.get(URI)
 //             .then(response => res.render('diagnostic', {data: response.data}))
@@ -51,7 +55,7 @@ router.post('/', (req, res, next) => {
 //     .then( symptomsFound => {
 //       console.log("answer from DB",symptomsFound)
 //       const ids = symptomsFound[0].ID
-//       const URI = `https://sandbox-healthservice.priaid.ch/diagnosis?symptoms=[${ids}]&gender=${req.user.gender}&year_of_birth=${req.user.year_of_birth}&token=${process.env.API_TOKEN}&format=json&language=es-es`
+//       const URI = `https://sandbox-healthservice.priaid.ch/diagnosis?symptoms=[${ids}]&gender=${req.user.gender}&year_of_birth=${req.user.year_of_birth}&token=${process.env.API_TOKEN}&format=json&language=en-gb`
 
 //       console.log(URI)
 //         axios.get(URI)

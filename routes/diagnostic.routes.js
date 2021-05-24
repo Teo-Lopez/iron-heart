@@ -8,7 +8,7 @@ const getToken = require('../utils/tokenRequest.js')
 
 router.get('/:id', (req, res) => {
 	getToken().then(_ => {
-		const URI = `https://sandbox-healthservice.priaid.ch/issues/${req.params.id}/info?token=${process.env.API_TOKEN}&format=json&language=es-es`
+		const URI = `https://sandbox-healthservice.priaid.ch/issues/${req.params.id}/info?token=${process.env.API_TOKEN}&format=json&language=en-gb`
 
 		axios
 			.get(URI)
@@ -23,7 +23,11 @@ router.get('/:id', (req, res) => {
 router.post('/details', (req, res) => {
 	const date = new Date()
 	const dateStr = date.toDateString()
-	User.findByIdAndUpdate({ _id: req.user._id }, { $push: { history: { name: req.body.diagnostic, date: dateStr } } }, { new: true })
+	User.findByIdAndUpdate(
+		{ _id: req.user._id },
+		{ $push: { history: { name: req.body.diagnostic, date: dateStr } } },
+		{ new: true }
+	)
 		.then(user => {
 			res.redirect('/profile')
 		})

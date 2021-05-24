@@ -17,7 +17,7 @@ router.get('/:id', (req, res, next) => {
 
 router.get('/:id/list', (req, res, next) => {
 	getToken(_ => {
-		const URILocations = `https://sandbox-healthservice.priaid.ch/symptoms/48/0?token=${process.env.API_TOKEN}&format=json&language=es-es`
+		const URILocations = `https://sandbox-healthservice.priaid.ch/symptoms/48/0?token=${process.env.API_TOKEN}&format=json&language=en-gb`
 		axios
 			.get(URILocations)
 			.then(response => res.json(response))

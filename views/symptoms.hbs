@@ -1,51 +1,41 @@
-<div class="symptoms-container">
-  <div class="symptoms-col">
- 
-   <div class="symptoms-row">
-      {{!-- <form action="/symptoms" method="POST">
-      <label for="symptoms">Choose a symptom:</label>
-      <select name="symptoms" id="symptoms" multiple size="5">
-        {{#each symptoms}}
-          <option class="sympton-options" value="{{this}}">{{this}}</option>
-        {{/each}}
-        </select>
-        <button>Get diagnostic</button>
-  
-      </form> --}}
 
-    <section class="bodySection">
-      <div id="instructions"><p>Click any part of the body to indicate what are your symptoms.</p>
-       <div id="symptomsList">
-         <form action="/symptoms" method="POST" id="symptomsForm" class="container">
+  <section class="symptoms-page">
+
+    <div class="row justify-content-around align-items-center">
+      <div  class="col-lg-6 instructions">
+        <p>Click any part of the body to indicate what are your symptoms.</p>
+        <form action="/symptoms" method="POST" id="symptomsForm" >
           <ul id="ulSymptoms" class="row">
           </ul>
-            <button>Get your Diagnostic</button>
-          </form> 
+        <button class="btn btn-outline-secondary">Get your Diagnostic</button>
+        </form>
       </div>
-      </div>
 
-
-
-
-      <div class="body">
-        <div id="armsdiv" class="hidden arms"></div>
-        <div id="abdomendiv" class="hidden abdomen"></div>
-        <div id="chestdiv" class="hidden chest"></div>
-        <div id="headdiv" class="hidden head"></div>
-        <div id="legsdiv" class="hidden legs"></div>
-        <div id="skindiv" class="hidden skin"></div>
-        <img src="/images/bodyimg.png" usemap="#image-map">      
+      <div class="col-lg-6">
+        <div class="modal" id="symptoms-modal" tabindex="-1">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Symptoms</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+              </div>
+            </div>
+          </div>
+        </div>
+        <img src="./images/bodyimg.png" usemap="#image-map">
         <map name="image-map">
-            <area target="" alt="arms" title="Arms" id="arms" coords="208,195,13" shape="circle">
-            <area target="" alt="abdomen" title="Abdomen" id="abdomen" coords="261,240,11" shape="circle">
-            <area target="" alt="chest" title="Chest" id="chest" coords="261,129,11" shape="circle">
-            <area target="" alt="head" title="Head" id="head" coords="262,54,13" shape="circle">
-            <area target="" alt="legs" title="Legs" id="legs" coords="285,358,11" shape="circle">
-            <area target="" alt="skin" title="Skin & others" id="skin" coords="328,192,12" shape="circle">
+          <area data-part="arms" target="" alt="arms" title="Arms" id="arms" coords="208,195,13" shape="circle">
+          <area data-part="abdomen" target="" alt="abdomen" title="Abdomen" id="abdomen" coords="261,240,11" shape="circle">
+          <area data-part="chest" target="" alt="chest" title="Chest" id="chest" coords="261,129,11" shape="circle">
+          <area data-part="head" target="" alt="head" title="Head" id="head" coords="262,54,13" shape="circle">
+          <area data-part="legs" target="" alt="legs" title="Legs" id="legs" coords="285,358,11" shape="circle">
+          <area data-part="skin" target="" alt="skin" title="Skin & others" id="skin" coords="328,192,12" shape="circle">
         </map>
       </div>
-    </section>
-    
 
-  <script src="/javascripts/services/symptoms.service.js"></script>
-  <script src="/javascripts/script.js"></script>
+    </div>
+  </section>
