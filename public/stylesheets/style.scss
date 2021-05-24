@@ -12,6 +12,18 @@ main {
 	padding-top: 65px;
 }
 
+section {
+	padding: 2% 10%;
+}
+section.map {
+	//padding: 0 10%;
+
+	#map {
+		height: 70vh;
+		width: 100%;
+	}
+}
+
 .heart-svg {
 	display: inline-block;
 	fill: currentColor;
@@ -69,11 +81,6 @@ a:hover {
 
 #layer1.done g {
 	opacity: 1;
-}
-
-#map {
-	height: 83vh;
-	width: 100%;
 }
 
 .mapForm {
@@ -176,17 +183,12 @@ ul {
 	}
 }
 
-a.diagnostic {
-	color: blue;
-}
-
 .symptoms-page {
-	padding: 10%;
-
 	li {
 		font-size: 1.2em;
 		padding: 5px 20px;
 	}
+
 	h5 {
 		font-size: 1.5em;
 	}
@@ -209,18 +211,12 @@ a.diagnostic {
 	}
 }
 
-.dot {
-	width: 30px;
-	height: auto;
-}
-
-.hidden {
-	opacity: 0;
-	border-radius: 15px;
-	text-align: center;
-	width: 200px;
-	background-color: whitesmoke;
-	p {
-		font-size: 0.9em;
+.diagnostic {
+	a {
+		font-size: 1.2em;
+		text-decoration: underline;
+	}
+	.diagnostic-row {
+		margin-bottom: 12px;
 	}
 }

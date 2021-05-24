@@ -4,8 +4,10 @@
 
 <p>Make sure to get checked periodically and to keep an eye in any repetitive common illness you get.</p>
 <p>We hope that this history of passed illnesses helps you to keep better track of your health!</p>
+
 <ol class="profileHistory">
-{{#each this.history}}
+
+{{#each this.user.history}}
 <li><p>{{this.name}} --- {{this.date}}</p></li>
 
 {{/each}}

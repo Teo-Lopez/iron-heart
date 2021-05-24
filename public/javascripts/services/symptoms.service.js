@@ -8,7 +8,7 @@ class BodypartsService {
 			abdomen: '16',
 			chest: '15',
 			head: '6',
-			leg: '10',
+			legs: '10',
 			skin: '17'
 		}
 	}
